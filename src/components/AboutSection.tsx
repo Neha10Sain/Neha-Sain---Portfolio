@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
+import { TiltCard } from './TiltCard';
+
 interface AboutSectionProps {
   onOpenPhotoModal?: () => void;
 }
@@ -189,23 +191,22 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenPhotoModal }) 
         {/* Four Technical Core Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {pillars.map((p) => (
-            <div
-              key={p.title}
-              className="h-full p-6 rounded-2xl bg-slate-900/70 border border-white/10 backdrop-blur-md hover:border-indigo-500/40 transition-colors flex flex-col justify-between"
-            >
-              <div>
-                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] w-fit mb-4">
-                  {p.icon}
+            <TiltCard key={p.title} maxTilt={8} scale={1.02} className="h-full">
+              <div className="h-full p-6 rounded-2xl bg-slate-900/70 border border-white/10 backdrop-blur-md hover:border-indigo-500/40 transition-colors flex flex-col justify-between shadow-lg">
+                <div>
+                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] w-fit mb-4">
+                    {p.icon}
+                  </div>
+                  <h3 className="text-base font-bold text-white mb-2">{p.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed">{p.description}</p>
                 </div>
-                <h3 className="text-base font-bold text-white mb-2">{p.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{p.description}</p>
+                <div className="mt-5 pt-3 border-t border-white/5">
+                  <span className="text-[11px] font-mono font-medium text-cyan-400">
+                    {p.tag}
+                  </span>
+                </div>
               </div>
-              <div className="mt-5 pt-3 border-t border-white/5">
-                <span className="text-[11px] font-mono font-medium text-cyan-400">
-                  {p.tag}
-                </span>
-              </div>
-            </div>
+            </TiltCard>
           ))}
         </div>
 

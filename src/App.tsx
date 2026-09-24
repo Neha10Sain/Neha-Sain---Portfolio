@@ -12,6 +12,8 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
 import { PhotoUploadModal } from './components/PhotoUploadModal';
+import { CursorSpotlight } from './components/CursorSpotlight';
+import { DataStreamTicker } from './components/DataStreamTicker';
 
 export default function App() {
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
@@ -51,7 +53,10 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200 transition-colors duration-200">
+      <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200 transition-colors duration-200 relative">
+        {/* Interactive Apple-Grade Ambient Cursor Spotlight */}
+        <CursorSpotlight />
+
         {/* Top Fixed Navbar */}
         <Navbar
           onOpenResume={() => setResumeModalOpen(true)}
@@ -61,9 +66,12 @@ export default function App() {
         {/* Main Content Sections */}
         <main className="flex-1">
           <HeroSection
-            onOpenPipelineLab={handleOpenPipelineLab}
             photoSrc={photoSrc}
+            onOpenResume={() => setResumeModalOpen(true)}
           />
+
+          {/* Live Simulated Enterprise Data Stream Telemetry */}
+          <DataStreamTicker />
 
           <AboutSection 
             onOpenPhotoModal={() => setPhotoModalOpen(true)}

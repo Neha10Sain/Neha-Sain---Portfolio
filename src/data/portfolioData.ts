@@ -277,6 +277,7 @@ export const EDUCATION: EducationItem[] = [
     gpa: '7.5 / 10.0',
     highlights: [
       'Comprehensive coursework in Data Structures, Algorithms, Database Management Systems, Operating Systems, and Software Engineering.',
+      'Part member and coordinator of "Blind Coding" in all technical tasks in college.',
       'Final year capstone focused on data-driven enterprise architectures and automated data processing.',
       'Active participant in technical symposiums, coding competitions, and open-source contributions.',
     ],

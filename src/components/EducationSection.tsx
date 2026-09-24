@@ -28,9 +28,14 @@ export const EducationSection: React.FC = () => {
                       <GraduationCap className="w-7 h-7" />
                     </div>
                     <div>
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                        Bachelor of Technology
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                          Bachelor of Technology
+                        </span>
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                          Coordinator: "Blind Coding"
+                        </span>
+                      </div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
                         {edu.degree}
                       </h3>
@@ -80,6 +85,9 @@ export const EducationSection: React.FC = () => {
                   </span>
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/[0.04] text-slate-300">
                     Computer Networks
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                    Blind Coding Coordinator
                   </span>
                 </div>
 

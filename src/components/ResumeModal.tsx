@@ -327,6 +327,9 @@ Jul 2020 – Jun 2024 | GPA: 7.5/10`;
                 <p className="text-slate-300 print:text-gray-700">
                   Laxmi Devi Institute of Engineering and Technology, Alwar, Rajasthan
                 </p>
+                <p className="text-[11px] text-cyan-400 print:text-indigo-800 mt-0.5">
+                  • Part member and coordinator of "Blind Coding" in all technical tasks in college
+                </p>
               </div>
               <div className="text-left sm:text-right font-mono text-slate-400 print:text-gray-600 mt-1 sm:mt-0">
                 <p>Jul 2020 – Jun 2024</p>

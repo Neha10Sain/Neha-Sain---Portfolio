@@ -11,8 +11,7 @@ import {
   AlertTriangle, 
   Cpu, 
   Mail, 
-  Sparkles,
-  Zap
+  Sparkles
 } from 'lucide-react';
 import { PipelineStep } from '../types';
 
@@ -110,16 +109,9 @@ export const PipelineSimulator: React.FC = () => {
         
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-12">
-          <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-3 flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5" />
-            INTERACTIVE ARCHITECTURE LAB
-          </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Live ETL Pipeline Simulator
           </h2>
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
-            Test the data flow architecture designed by Neha Sain — transforming disparate raw telecom logs into executive scorecards with 99.9% reliability.
-          </p>
         </div>
 
         {/* Interactive Simulator Shell */}

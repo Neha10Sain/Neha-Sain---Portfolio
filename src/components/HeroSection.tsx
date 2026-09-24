@@ -4,16 +4,16 @@ import {
   ArrowRight, 
   Database, 
   Terminal, 
-  Layers, 
   TrendingUp, 
   Upload, 
-  Cpu
+  Cpu,
+  Mail
 } from 'lucide-react';
 import { PERSONAL_INFO, CORE_METRICS } from '../data/portfolioData';
 import { TiltCard } from './TiltCard';
 
 interface HeroSectionProps {
-  onOpenPipelineLab: () => void;
+  onOpenPipelineLab?: () => void;
   photoSrc?: string;
 }
 
@@ -85,15 +85,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <ArrowRight className="w-4 h-4" />
               </a>
 
-              <button
-                type="button"
-                id="hero-pipeline-simulator-btn"
-                onClick={onOpenPipelineLab}
+              <a
+                href="#contact"
+                id="hero-contact-btn"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700/80 hover:border-slate-600 transition-all duration-200 shadow-sm"
               >
-                <Layers className="w-4 h-4 text-cyan-400" />
-                <span>3D Pipeline Lab</span>
-              </button>
+                <Mail className="w-4 h-4 text-indigo-400" />
+                <span>Get In Touch</span>
+              </a>
             </motion.div>
           </div>
 

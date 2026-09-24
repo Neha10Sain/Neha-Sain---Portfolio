@@ -35,15 +35,9 @@ export const ProjectsSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-12">
-          <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-3">
-            PORTFOLIO & KEY SYSTEMS
-          </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Production Software & Data Systems
+            Key Projects
           </h2>
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
-            Mission-critical applications built with Python, React, PostgreSQL, Power BI, and modern cloud patterns.
-          </p>
         </div>
 
         {/* Filter Tabs */}

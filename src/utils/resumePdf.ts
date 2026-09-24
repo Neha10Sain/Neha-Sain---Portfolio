@@ -208,7 +208,11 @@ export function downloadResumePDF(): void {
   doc.setFontSize(8.5);
   doc.setTextColor(71, 85, 105);
   doc.text('Laxmi Devi Institute of Engineering and Technology (LIET), Alwar, Rajasthan  •  Cumulative GPA: 7.5 / 10', margin, y);
-  y += 16;
+  y += 11;
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(79, 70, 229);
+  doc.text('• Part member and coordinator of "Blind Coding" in all technical tasks in college', margin + 4, y);
+  y += 15;
 
   // Page numbering footer on all pages
   const totalPages = doc.getNumberOfPages();

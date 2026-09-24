@@ -28,6 +28,23 @@
   backface-visibility: hidden;
 }
 
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333333%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 35s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -79,6 +96,80 @@ html.light ::-webkit-scrollbar-thumb:hover {
   border-color: rgba(99, 102, 241, 0.3);
   background: rgba(17, 24, 39, 0.85);
   box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5), 0 0 24px -4px rgba(99, 102, 241, 0.15);
+}
+
+/* -------------------------------------------------------------
+ * Apple-Inspired Fluid Physics & Micro-Interactions
+ * ------------------------------------------------------------- */
+:root {
+  --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Global Apple Button Physics: spring lift, specular expansion, tactile click */
+button:not(:disabled),
+a.inline-flex,
+input[type="button"],
+input[type="submit"] {
+  transition: transform 0.28s var(--apple-ease), box-shadow 0.28s var(--apple-ease), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  will-change: transform;
+}
+
+button:not(:disabled):hover,
+a.inline-flex:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  transform: translateY(-1.5px) scale(1.02);
+}
+
+button:not(:disabled):active,
+a.inline-flex:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+  transform: translateY(0.5px) scale(0.975);
+  transition-duration: 0.1s;
+}
+
+/* Apple text link hover glow */
+a:not(.inline-flex):hover {
+  transition: color 0.2s var(--apple-ease), opacity 0.2s var(--apple-ease), text-shadow 0.2s var(--apple-ease);
+}
+
+/* Apple Interactive Text & Heading Micro-Luminescence */
+h1, h2, h3 {
+  transition: text-shadow 0.35s var(--apple-ease), transform 0.35s var(--apple-ease), filter 0.35s var(--apple-ease);
+}
+
+h1:hover, h2:hover, h3:hover {
+  filter: brightness(1.07);
+}
+
+/* Interactive badges and tech skill chips hover */
+.font-mono.rounded-full,
+.font-mono.rounded-md,
+.font-mono.rounded-lg {
+  transition: transform 0.25s var(--apple-ease), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s var(--apple-ease);
+}
+
+.font-mono.rounded-full:hover,
+.font-mono.rounded-md:hover,
+.font-mono.rounded-lg:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+/* Apple Cards Elevation */
+.rounded-3xl.bg-slate-900\/80,
+.rounded-3xl.bg-slate-900\/90,
+.rounded-2xl.bg-slate-900\/80,
+.rounded-2xl.bg-slate-900\/90 {
+  transition: transform 0.35s var(--apple-ease), box-shadow 0.35s var(--apple-ease), border-color 0.35s var(--apple-ease);
+}
+
+.rounded-3xl.bg-slate-900\/80:hover,
+.rounded-3xl.bg-slate-900\/90:hover,
+.rounded-2xl.bg-slate-900\/80:hover,
+.rounded-2xl.bg-slate-900\/90:hover {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.45), 0 0 20px -3px rgba(99, 102, 241, 0.12);
 }
 
 /* Subtle grid background */
@@ -201,6 +292,19 @@ html.light #main-navigation {
   background-color: rgba(255, 255, 255, 0.85) !important;
   border-bottom: 1px solid #e2e8f0 !important;
   box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+html.light #main-navigation nav {
+  background-color: rgba(241, 245, 249, 0.85) !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light #main-navigation nav a {
+  color: #475569 !important;
+}
+
+html.light #main-navigation nav a:hover {
+  color: #0f172a !important;
 }
 
 html.light section,
