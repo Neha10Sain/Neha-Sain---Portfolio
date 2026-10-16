@@ -7,7 +7,10 @@ import {
   TrendingUp, 
   Upload, 
   Cpu,
-  Mail
+  Mail,
+  Camera,
+  Check,
+  Loader2
 } from 'lucide-react';
 import { PERSONAL_INFO, CORE_METRICS } from '../data/portfolioData';
 import { TiltCard } from './TiltCard';
@@ -16,19 +19,58 @@ interface HeroSectionProps {
   onOpenPipelineLab?: () => void;
   photoSrc?: string;
   onOpenResume?: () => void;
+  onOpenPhotoModal?: () => void;
+  onPhotoChange?: (url: string) => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ 
   onOpenPipelineLab, 
   photoSrc = '/neha-sain.png',
-  onOpenResume
+  onOpenResume,
+  onOpenPhotoModal,
+  onPhotoChange
 }) => {
   const [imgSrc, setImgSrc] = useState<string>(photoSrc);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   // Sync with prop if it changes
   React.useEffect(() => {
     setImgSrc(photoSrc);
   }, [photoSrc]);
+
+  const handleHeroFileUpload = async (file: File) => {
+    if (!file.type.startsWith('image/')) return;
+    setIsUploading(true);
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const dataUrl = e.target?.result as string;
+      if (dataUrl) {
+        setImgSrc(dataUrl);
+        try {
+          const res = await fetch('/api/save-profile-photo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: dataUrl }),
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.url) {
+              setImgSrc(json.url);
+              onPhotoChange?.(json.url);
+            }
+          }
+        } catch (err) {
+          console.warn('Could not save to server', err);
+        }
+        onPhotoChange?.(dataUrl);
+        setIsUploading(false);
+        setUploadSuccess(true);
+        setTimeout(() => setUploadSuccess(false), 3500);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <section
@@ -118,15 +160,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       src={imgSrc}
                       alt="Neha Sain – Python FullStack Developer"
                       onError={() => {
-                        if (imgSrc !== 'https://github.com/Neha10Sain.png') {
-                          setImgSrc('https://github.com/Neha10Sain.png');
-                        } else {
-                          setImgSrc('/neha-sain.svg');
-                        }
+                        setImgSrc('/neha-sain.png');
                       }}
                       className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
                       loading="eager"
                     />
+
+                    {/* Quick Profile.png Upload Overlay on Hover/Focus */}
+                    <div className="absolute inset-0 bg-slate-950/65 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center backdrop-blur-xs">
+                      <label 
+                        htmlFor="hero-profile-upload"
+                        className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/40 hover:scale-105 active:scale-95 transition-all"
+                      >
+                        {isUploading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin text-white" />
+                            <span>Saving as Permanent Default...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Camera className="w-4 h-4 text-white" />
+                            <span>Set Profile.png as Default</span>
+                          </>
+                        )}
+                        <input
+                          id="hero-profile-upload"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            if (f) handleHeroFileUpload(f);
+                          }}
+                        />
+                      </label>
+                      
+                      <button
+                        type="button"
+                        onClick={onOpenPhotoModal}
+                        className="mt-2 text-[11px] text-cyan-300 hover:text-white underline underline-offset-2 transition-colors"
+                      >
+                        More Photo Options
+                      </button>
+                    </div>
+
+                    {uploadSuccess && (
+                      <div className="absolute bottom-3 left-3 right-3 p-2 rounded-xl bg-emerald-500 text-white text-[11px] font-semibold text-center shadow-lg backdrop-blur-sm animate-in fade-in flex items-center justify-center gap-1.5 z-20">
+                        <Check className="w-3.5 h-3.5" />
+                        <span>✓ Profile.png is now permanent default!</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </TiltCard>
