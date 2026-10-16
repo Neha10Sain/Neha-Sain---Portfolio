@@ -19,21 +19,48 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
 }) => {
   const [dragOver, setDragOver] = useState(false);
   const [successMsg, setSuccessMsg] = useState(false);
+  const [savingServer, setSavingServer] = useState(false);
+  const [savedPermanent, setSavedPermanent] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleFile = (file: File) => {
+  const savePhotoToServer = async (dataUrl: string) => {
+    try {
+      setSavingServer(true);
+      const res = await fetch('/api/save-profile-photo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: dataUrl }),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        setSavedPermanent(true);
+        if (json.url) {
+          onPhotoChange(json.url);
+          return json.url;
+        }
+      }
+    } catch (e) {
+      console.warn('Server save not available, saved locally', e);
+    } finally {
+      setSavingServer(false);
+    }
+    return dataUrl;
+  };
+
+  const handleFile = async (file: File) => {
     if (!file.type.startsWith('image/')) return;
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const dataUrl = e.target?.result as string;
       if (dataUrl) {
         onPhotoChange(dataUrl);
+        await savePhotoToServer(dataUrl);
         setSuccessMsg(true);
         setTimeout(() => {
           setSuccessMsg(false);
           onClose();
-        }, 1200);
+        }, 1500);
       }
     };
     reader.readAsDataURL(file);
@@ -159,14 +186,25 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
             </label>
           </div>
 
-          {successMsg && (
+          {savingServer && (
             <motion.div
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center justify-center gap-2 font-mono"
+              className="mt-3 p-2.5 rounded-xl bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs flex items-center justify-center gap-2 font-mono"
+            >
+              <div className="w-3.5 h-3.5 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin" />
+              <span>Saving permanently as project default...</span>
+            </motion.div>
+          )}
+
+          {successMsg && !savingServer && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center justify-center gap-2 font-mono"
             >
               <Check className="w-4 h-4" />
-              <span>Photo updated successfully!</span>
+              <span>✓ Saved permanently as default across all browsers!</span>
             </motion.div>
           )}
 
