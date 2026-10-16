@@ -15,11 +15,13 @@ import { TiltCard } from './TiltCard';
 interface HeroSectionProps {
   onOpenPipelineLab?: () => void;
   photoSrc?: string;
+  onOpenResume?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ 
   onOpenPipelineLab, 
-  photoSrc = '/neha-sain.png' 
+  photoSrc = '/neha-sain.png',
+  onOpenResume
 }) => {
   const [imgSrc, setImgSrc] = useState<string>(photoSrc);
 
@@ -116,7 +118,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       src={imgSrc}
                       alt="Neha Sain – Python FullStack Developer"
                       onError={() => {
-                        if (imgSrc !== '/neha-sain.svg') {
+                        if (imgSrc !== 'https://github.com/Neha10Sain.png') {
+                          setImgSrc('https://github.com/Neha10Sain.png');
+                        } else {
                           setImgSrc('/neha-sain.svg');
                         }
                       }}

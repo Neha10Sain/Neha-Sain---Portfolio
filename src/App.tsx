@@ -19,10 +19,14 @@ export default function App() {
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
   const [photoModalOpen, setPhotoModalOpen] = useState(false);
 
-  // Profile photo state with local storage persistence
+  // Profile photo state with local storage persistence and reliable default
   const [photoSrc, setPhotoSrc] = useState<string>(() => {
     try {
-      return localStorage.getItem('neha_custom_photo') || '/neha-sain.png';
+      const saved = localStorage.getItem('neha_custom_photo');
+      if (saved && (saved.startsWith('data:image') || saved.startsWith('http') || saved.startsWith('/'))) {
+        return saved;
+      }
+      return '/neha-sain.png';
     } catch {
       return '/neha-sain.png';
     }
