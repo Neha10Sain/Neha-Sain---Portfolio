@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Upload, X, RotateCcw, Check, Image as ImageIcon, Github, Download, Globe } from 'lucide-react';
+import { Upload, X, RotateCcw, Check, Image as ImageIcon, Download } from 'lucide-react';
 
 interface PhotoUploadModalProps {
   isOpen: boolean;
@@ -112,7 +112,7 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
                 src={currentPhoto}
                 alt="Current profile"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://github.com/Neha10Sain.png';
+                  (e.target as HTMLImageElement).src = '/neha-sain.png';
                 }}
                 className="w-full h-full object-cover object-top"
               />
@@ -134,25 +134,6 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
             >
               <Download className="w-4 h-4" />
             </a>
-          </div>
-
-          {/* Fast Presets: GitHub Photo */}
-          <div className="mb-4">
-            <button
-              type="button"
-              onClick={() => {
-                onPhotoChange('https://github.com/Neha10Sain.png');
-                setSuccessMsg(true);
-                setTimeout(() => {
-                  setSuccessMsg(false);
-                  onClose();
-                }, 1200);
-              }}
-              className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-xs font-medium text-slate-200 hover:text-white border border-slate-700 hover:border-indigo-400 transition-all shadow-sm group"
-            >
-              <Github className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
-              <span>Sync with GitHub Profile Photo (@Neha10Sain)</span>
-            </button>
           </div>
 
           {/* Drag & drop upload area */}

@@ -72,8 +72,6 @@ export default function App() {
           <HeroSection
             photoSrc={photoSrc}
             onOpenResume={() => setResumeModalOpen(true)}
-            onOpenPhotoModal={() => setPhotoModalOpen(true)}
-            onPhotoChange={handlePhotoChange}
           />
 
           {/* Live Simulated Enterprise Data Stream Telemetry */}
